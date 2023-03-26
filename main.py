@@ -1,6 +1,7 @@
 import os
 import ngame
 import datetime
+import accs
 import discord
 import random
 import cmds
@@ -37,12 +38,36 @@ async def on_ready():
 @client.slash_command(name="games-fuck", description='play the fuck game')
 async def fuckgame(ctx):
     global current_game
-    current_game = 'ngame'
+    if ngame.last_played + datetime.timedelta(seconds=30) < datetime.datetime.now():
+        current_game = 'ngame'
     embed = ngame.ngame(ctx)
     await ctx.respond(embed = embed)
     
+@client.slash_command(name="save", description='sshhh')
+async def ball9(ctx):
+    file = accs.save()
+    await ctx.respond(file = file, ephemeral = True)
+    
+@client.slash_command(name="gamble", description='bad idea')
+async def ball9(ctx, amount: discord.Option(int)):
+    acc = accs.get_acc(ctx.author.name)
+    if amount > acc.vars['gold']:
+        await ctx.respond("Not enough gold,your broke lol",ephemeral = True)
+        return
+    if amount < 1:
+        await ctx.respond("You have to gamble > 1 gold",ephemeral = True)
+        return
+    if random.randint(0,1):
+        acc.vars['gold'] += amount
+        await ctx.respond(embed = discord.Embed(title=f"You won {amount} gold! You have {acc.vars['gold']} gold now"))
+        return
+    else:
+        acc.vars['gold'] -= amount
+        await ctx.respond(embed = discord.Embed(title=f"You lost {amount} gold :( You have {acc.vars['gold']} gold now"))
+        return
+    
 @client.slash_command(name="9ball", description='now with an extra ball!')
-async def ball9(ctx, thing = discord.Option(str)):
+async def ball9(ctx, thing: discord.Option(str)):
     embed = cmds.ball9(ctx, thing)
     await ctx.respond(embed = embed)
 
@@ -81,6 +106,38 @@ async def on_message(message):
     if message.content.startswith(f"{prefix}tod") or message.content.startswith(f"{prefix}truth"):
         embed = cmds.tod(message)
         await message.channel.send(embed = embed, view = truthView(message))
+
+    if message.content.startswith(f"{prefix}9ball") or message.content.startswith(f"{prefix}8ball"):
+        try:
+            embed = cmds.ball9(message, message.content.split(' ')[1])
+        except:
+            await message.channel.send("You must specify a subject (`>9ball <subject>`)")
+            return
+        await message.channel.send(embed = embed)
+
+    if message.content.startswith(f"{prefix}gamble"):
+        try:
+            amount = int(message.content.split(' ')[1])
+        except:
+            await message.channel.send("Use numbers pls")
+            return
+        acc = accs.get_acc(message.author.name)
+        if amount > acc.vars['gold']:
+            await message.channel.send("Not enough gold,your broke lol")
+            return
+        if amount < 1:
+            await message.channel.send("You have to gamble > 1 gold")
+            return
+        if random.randint(0,1):
+            acc.vars['gold'] += amount
+            await message.channel.send(embed = discord.Embed(title=f"You won {amount} gold! You have {acc.vars['gold']} gold now"))
+            return
+        else:
+            acc.vars['gold'] -= amount
+            await message.channel.send(embed = discord.Embed(title=f"You lost {amount} gold :( You have {acc.vars['gold']} gold now"))
+            return
+        
+
     elif message.content.startswith(f"{prefix}games"):
         if message.content == f"{prefix} games":
             embed = discord.Embed()

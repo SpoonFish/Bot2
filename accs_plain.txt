@@ -1,0 +1,7 @@
+Bulp (バールプ):gold,0
+SpoonFsh:gold,0
+ria:gold,0
+Cybin:gold,0
+チョコ:gold,0
+col:gold,0
+greed:gold,0

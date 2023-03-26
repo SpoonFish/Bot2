@@ -28,6 +28,6 @@ def tod(ctx):
 
 def ball9(ctx, thing:str):
     embed = discord.Embed()
-    result = random.choice["Yes","OH MOST DEFINITELY", "hell no", "no, bozo","*maybe*", "kinda", "i guess..", "thats just a rumour", "sureee..", "i think so", "quite the opposite", "not reallyyy", "50/50"]
+    result = random.choice(["Yes","OH MOST DEFINITELY", "hell no", "no, bozo","naw","rawwwr uwu","*maybe*", "kinda", "i guess..", "thats just a rumour", "sureee..", "i think so", "quite the opposite", "not reallyyy", "50/50"])
     embed.title = f"{thing.capitalize()}? {result}"
     return embed
