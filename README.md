@@ -1,3 +1,3 @@
-# Perebot
-Discord bot made with pycord. Allows users to play a text base RPG game based off the game Pereger
+# ForkFish
+Discord bot made with pycord. Fun server bot, extremely rude and nsfw
 
