@@ -1,0 +1,10 @@
+#CP sheet
+#
+#Members:  (name, balance, spins, pearls, [inventory])
+#
+jeels#1028,10012,11096,288,,Gold Bar
+SpoonFsh#5129,9999955,11011,832,,Broken Glass (RELIC),<Pastel Colour Access>,<Exotic Colour Access>,<One-Time Emoji Ticket>,Broken Glass (RELIC),Broken Glass (RELIC),Silver Bar,Silver Bar,Gold Bar,Gold Bar,Gold Bar,Gold Bar,Gold Bar,Silver Bar
+Pereger#1760,19,0,2962,,Gold Bar,Gold Bar,Gold Bar,Silver Bar,Silver Bar,Silver Bar,Silver Bar,Gold Bar,Gold Bar,Crystal Shell (RELIC),Gold Bar,Silver Bar,Silver Bar,<Exotic Colour Access>,<Pastel Colour Access>
+#
+#Modifiers for certain members:  (name, more/less, percentage)
+#
