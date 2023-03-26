@@ -34,8 +34,8 @@ def truthView(ctx):
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-@client.slash_command(name="games-nigga", description='play the nigga game')
-async def niggagame(ctx):
+@client.slash_command(name="games-fuck", description='play the fuck game')
+async def fuckgame(ctx):
     global current_game
     current_game = 'ngame'
     embed = ngame.ngame(ctx)
@@ -68,7 +68,7 @@ async def on_message(message):
             current_game = ''
             await message.channel.send(embed = embed)
         cont = message.content.lower()
-        if 'nigga' in cont or 'nigger' in cont or 'niger' in cont:
+        if 'fuck' in cont:
             try: current_game_scores[message.author.name] += 1
             except: pass
 
@@ -79,10 +79,10 @@ async def on_message(message):
         if message.content == f"{prefix} games":
             embed = discord.Embed()
             embed.title = "Games:"
-            embed.add_field(name="Nigga game (>games nigga)", value="player to send the most n-words in 8 seconds wins! (min 2 players)")
+            embed.add_field(name="Fuck game (>games fuck)", value="player to send the most n-words in 8 seconds wins! (min 2 players)")
             await message.channel.send(embed = embed)
 
-        if message.content.startswith(f"{prefix}games nigga"):
+        if message.content.startswith(f"{prefix}games fuck"):
             current_game = 'ngame'
             embed = ngame.ngame(message)
             await message.channel.send(embed = embed)
