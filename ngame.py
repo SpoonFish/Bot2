@@ -13,5 +13,5 @@ def ngame(ctx):
     last_played = datetime.datetime.now()
     embed = discord.Embed()
     embed.title = "GOOO!"
-    embed.description = f'You have 12 seconds to say NIGGER as much as you can'
+    embed.description = f'You have 12 seconds to say FUCK as much as you can'
     return embed
