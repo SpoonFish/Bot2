@@ -79,7 +79,7 @@ async def on_message(message):
         if message.content == f"{prefix} games":
             embed = discord.Embed()
             embed.title = "Games:"
-            embed.add_field(name="FUCK game (>games fuck)", value="player to send the most n-words in 12 seconds wins! (min 2 players)")
+            embed.add_field(name="Nigga game (>games nigga)", value="player to send the most n-words in 8 seconds wins! (min 2 players)")
             await message.channel.send(embed = embed)
 
         if message.content.startswith(f"{prefix}games fuck"):
