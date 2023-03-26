@@ -25,3 +25,9 @@ def tod(ctx):
         embed.remove_footer()
         embed.set_footer(text='ria go to sleep..')
     return embed
+
+def ball9(ctx, thing:str):
+    embed = discord.Embed()
+    result = random.choice["Yes","OH MOST DEFINITELY", "hell no", "no, bozo","*maybe*", "kinda", "i guess..", "thats just a rumour", "sureee..", "i think so", "quite the opposite", "not reallyyy", "50/50"]
+    embed.title = f"{thing.capitalize()}? {result}"
+    return embed
