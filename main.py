@@ -40,6 +40,12 @@ async def fuckgame(ctx):
     current_game = 'ngame'
     embed = ngame.ngame(ctx)
     await ctx.respond(embed = embed)
+    
+@client.slash_command(name="9ball", description='now with an extra ball!')
+async def ball9(ctx, thing = discord.Option(str)):
+    embed = cmds.ball9(ctx, thing)
+    await ctx.respond(embed = embed)
+
 @client.slash_command(name="truth", description='knowledge is pain, knowledge is power')
 async def truth(ctx):
     embed = discord.Embed()
