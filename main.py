@@ -93,7 +93,7 @@ async def on_message(message):
                 if current_game_scores[p] > high:
                     high = current_game_scores[p]
                     highp = p
-            reward = round(high+(high*random.uniform(0.65,1.13)))
+            reward = round((high+5)*random.uniform(0.65,1.13))
             embed.description = f'**{highp}** wins with {high} points! +{reward} gold!'
             accs.get_acc(highp).vars["gold"] += reward
             for player in current_game_scores:
