@@ -30,7 +30,7 @@ def save():
             f.write(f"{acc.name}:{var_string}\n")
     return discord.File("accs.txt")
 
-def get_acc(name):
+def get_acc(name) -> Acc:
     for acc in accs:
         if acc.name == name:
             return acc

@@ -29,7 +29,7 @@ def truthView(ctx):
         
         @discord.ui.button(label=f"Truth", style=discord.ButtonStyle.blurple)
         async def third_button_callback(self, button, interaction, ctx = ctx):
-            await truth(ctx)
+            await truth(ctx, name = interaction.user.name)
     return Truth()
 @client.event
 async def on_ready():
@@ -41,6 +41,12 @@ async def fuckgame(ctx):
     if ngame.last_played + datetime.timedelta(seconds=30) < datetime.datetime.now():
         current_game = 'ngame'
     embed = ngame.ngame(ctx)
+    await ctx.respond(embed = embed)
+@client.slash_command(name="games-math", description='play the math game')
+async def mathgame(ctx):
+    global current_game
+    current_game = 'math'
+    embed = ngame.mathgame(ctx)
     await ctx.respond(embed = embed)
     
 @client.slash_command(name="save", description='sshhh')
@@ -72,9 +78,13 @@ async def ball9(ctx, thing: discord.Option(str)):
     await ctx.respond(embed = embed)
 
 @client.slash_command(name="truth", description='knowledge is pain, knowledge is power')
-async def truth(ctx):
+async def truth(ctx, name=""):
     embed = discord.Embed()
-    embed = cmds.tod(ctx)
+    if name == "": name = ctx.author.name
+    embed, gold = cmds.tod(ctx, name)
+    if gold > 0:
+        accs.get_acc(name).vars["gold"]+=gold
+    embed.set_footer(text=f'they have {accs.get_acc(name).vars["gold"]} gold now') 
     try: await ctx.respond(embed = embed, view = truthView(ctx))
     except: await ctx.channel.send(embed = embed, view = truthView(ctx))
 
@@ -83,7 +93,29 @@ async def on_message(message):
     global current_game
     if message.author.bot:
         return
-    if current_game == 'ngame':
+    if current_game == 'math' and message.content.isdigit():
+        try: answ = int(message.content)
+        except: answ = 0
+        if ngame.time_at_start + datetime.timedelta(seconds=10) < datetime.datetime.now():
+            embed = discord.Embed()
+            embed.title = "Outta time!"
+            if answ == ngame.answ: embed.description = "Sad, the answer was right :( "
+            else: embed.description = ""
+            embed.description += f'Nobody wins!'
+            await message.channel.send(embed = embed)
+            current_game = ''
+            return
+        if answ == ngame.answ:
+            embed = discord.Embed()
+            embed.title = f"{message.author.name} got it correct!"
+            gold = round(answ/16)+random.randint(1,3)
+            accs.get_acc(message.author.name).vars["gold"] += gold
+            embed.description = f'+{gold} gold, {message.author.name} now has {accs.get_acc(message.author.name).vars["gold"]} gold'
+            await message.channel.send(embed = embed)
+            return
+
+        
+    elif current_game == 'ngame':
         if ngame.last_played + datetime.timedelta(seconds=12) < datetime.datetime.now():
             embed = discord.Embed()
             embed.title = "The game is over!"
@@ -100,13 +132,17 @@ async def on_message(message):
                 current_game_scores[player] = 0
             current_game = ''
             await message.channel.send(embed = embed)
+            return
         cont = message.content.lower()
         if 'fuck' in cont:
             try: current_game_scores[message.author.name] += 1
             except: pass
 
     if message.content.startswith(f"{prefix}tod") or message.content.startswith(f"{prefix}truth"):
-        embed = cmds.tod(message)
+        embed, gold = cmds.tod(message)
+        if gold > 0:
+            accs.get_acc(message.author.name).vars["gold"]+=gold
+        embed.set_footer(text=f'they have {accs.get_acc(message.author.name).vars["gold"]} gold now') 
         await message.channel.send(embed = embed, view = truthView(message))
 
     if message.content.startswith(f"{prefix}9ball") or message.content.startswith(f"{prefix}8ball"):
@@ -141,15 +177,21 @@ async def on_message(message):
         
 
     elif message.content.startswith(f"{prefix}games"):
-        if message.content == f"{prefix} games":
+        if message.content == f"{prefix}games":
             embed = discord.Embed()
             embed.title = "Games:"
-            embed.add_field(name="Nigga game (>games nigga)", value="player to send the most n-words in 8 seconds wins! (min 2 players)")
+            embed.add_field(name="FUCK game (>games fuck)", value="player to send the most FUCKs in 12 seconds wins! (min 2 players)")
+            embed.add_field(name="MATH game (>games math)", value="do some kwik maths and get the brain going")
             await message.channel.send(embed = embed)
 
         if message.content.startswith(f"{prefix}games fuck"):
             current_game = 'ngame'
             embed = ngame.ngame(message)
+            await message.channel.send(embed = embed)
+
+        if message.content.startswith(f"{prefix}games math"):
+            current_game = 'math'
+            embed = ngame.mathgame(message)
             await message.channel.send(embed = embed)
 
 
