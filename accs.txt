@@ -1,6 +1,6 @@
 Bulp (バールプ):gold,100
-SpoonFsh:gold,47
-ria:gold,0
+SpoonFsh:gold,247
+ria:gold,300
 Cybin:gold,100
 チョコ:gold,100
 col:gold,100
