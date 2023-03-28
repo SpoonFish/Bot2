@@ -13,9 +13,9 @@ def tod(ctx, name=""):
         try: select_from_truths.remove(tr)
         except: pass
     truth = random.choice(select_from_truths)
-    #recent_truths.insert(0, truth)
-    if len(recent_truths) > 25:
-        recent_truths = recent_truths[:25]
+    recent_truths.insert(0, truth)
+    if len(recent_truths) > 45:
+        recent_truths = recent_truths[:45]
     embed = discord.Embed()
     embed.title = truth
     embed.description = f'requested by {name}'
