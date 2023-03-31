@@ -12,7 +12,7 @@ current_game = ''
 current_game_scores = {
     "Bulp (バールプ)" : 0,
     "SpoonFsh" : 0,
-    "ria" : 0,
+    "aurora" : 0,
     "Cybin" : 0,
     "チョコ" : 0,
     "col" : 0,
