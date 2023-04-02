@@ -49,6 +49,11 @@ async def mathgame(ctx):
     embed = ngame.mathgame(ctx)
     await ctx.respond(embed = embed)
     
+@client.slash_command(name="say", description='secret safe with me')
+async def say(ctx, text: discord.Option(str)):
+    await ctx.respond(f"Sent `{text}`!", ephemeral = True)
+    await ctx.channel.send(text)
+    
 @client.slash_command(name="save", description='sshhh')
 async def ball9(ctx):
     file = accs.save()
