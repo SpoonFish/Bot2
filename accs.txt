@@ -5,3 +5,4 @@ Cybin:gold,100
 チョコ:gold,100
 col:gold,100
 greed:gold,101
+Fake-Zero:gold,100
