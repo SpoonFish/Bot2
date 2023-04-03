@@ -24,7 +24,7 @@ def mathgame(ctx):
     time_at_start = datetime.datetime.now()
     embed = discord.Embed()
     num1 = random.randint(5,50)
-    num2 = random.randint(0,10)
+    num2 = random.randint(2,12)
     num3 = random.randint(3,20)
     global answ
     answ = num1 * num2 + num3
