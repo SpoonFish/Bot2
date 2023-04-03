@@ -17,6 +17,7 @@ current_game_scores = {
     "チョコ" : 0,
     "col" : 0,
     "greed" : 0,
+    "Fake-Zero" : 0,
 
 }
 load_dotenv()
