@@ -97,8 +97,9 @@ async def truth(ctx, name=""):
 @client.event
 async def on_message(message):
     global current_game
-    if message.author.bot:
-        return
+    #if message.author.bot:
+        
+        #return
     if current_game == 'math' and message.content.isdigit():
         try: answ = int(message.content)
         except: answ = 0
